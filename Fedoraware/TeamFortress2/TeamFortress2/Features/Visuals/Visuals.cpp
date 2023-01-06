@@ -514,7 +514,7 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 					if (G::ShiftedTicks == 0 && !G::Recharging)
 					{
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
-							L"(RapidFire) Too Expensive %i < %i", 4 - G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
+							L"(RapidFire) Too Expensive %i < %i", 3 - G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
 
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"", 0 - G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
