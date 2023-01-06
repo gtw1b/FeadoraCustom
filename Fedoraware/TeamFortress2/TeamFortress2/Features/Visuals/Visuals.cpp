@@ -535,62 +535,177 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 							L"");
 					}
 
-					else if (pLocal->GetClassNum() == CLASS_SNIPER && pWeapon->GetSlot() == SLOT_PRIMARY) // sniper rifle does not work well with rapidfire
+					else if (pLocal->GetClassNum() == CLASS_SNIPER && pWeapon->GetSlot() == SLOT_PRIMARY) // Sniper PRIMARY
 					{
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"(RapidFire) Weapon Not Supported");
 
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"");
-						//Vars::Misc::CL_Move::DTMode.Value = 3;
+						Vars::Misc::CL_Move::DTMode.Value = 3;
+						//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_SNIPER && pWeapon->GetSlot() == SLOT_SECONDARY) // Sniper SECONDARY
+					{
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"(RapidFire) Ready");
+
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"");
+						Vars::Misc::CL_Move::DTMode.Value = 1;
+						Vars::Misc::CL_Move::DTTicks.Value = 21;
 						//Vars::Backtrack::Enabled.Value = false;
 					}
 
-					else if (pLocal->GetClassNum() == CLASS_PYRO && pWeapon->GetSlot() == SLOT_PRIMARY) // flame thrower does not work well with rapidfire
+					else if (pLocal->GetClassNum() == CLASS_PYRO && pWeapon->GetSlot() == SLOT_PRIMARY) // Pyro PRIMARY
 					{
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"(RapidFire) Weapon Not Supported");
 
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"");
-						//Vars::Misc::CL_Move::DTMode.Value = 3;
+						Vars::Misc::CL_Move::DTMode.Value = 3;
 						//Vars::Backtrack::Enabled.Value = false;
 					}
-					else if (pLocal->GetClassNum() == CLASS_SOLDIER && pWeapon->GetSlot() == SLOT_PRIMARY) // rocket launcher does not work well with rapidfire
+					else if (pLocal->GetClassNum() == CLASS_PYRO && pWeapon->GetSlot() == SLOT_SECONDARY) // Pyro SECONDARY
 					{
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"(RapidFire) Ready");
 
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"");
-						//Vars::Misc::CL_Move::DTMode.Value = 3;
+						Vars::Misc::CL_Move::DTMode.Value = 1;
+						Vars::Misc::CL_Move::DTTicks.Value = 21;
 						//Vars::Backtrack::Enabled.Value = false;
 					}
-					else if (pLocal->GetClassNum() == CLASS_DEMOMAN && pWeapon->GetSlot() == SLOT_SECONDARY) // sticky launcher does not work well with rapidfire
+					else if (pLocal->GetClassNum() == CLASS_SOLDIER && pWeapon->GetSlot() == SLOT_PRIMARY) // Soldier PRIMARY
 					{
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"(RapidFire) Ready");
 
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"");
-						//Vars::Misc::CL_Move::DTMode.Value = 3;
+						Vars::Misc::CL_Move::DTMode.Value = 1;
+						Vars::Misc::CL_Move::DTTicks.Value = 21;
 						//Vars::Backtrack::Enabled.Value = false;
 					}
-					else if (pWeapon->GetSlot() == SLOT_MELEE) // melee does not work well with rapidfire
+					else if (pLocal->GetClassNum() == CLASS_SOLDIER && pWeapon->GetSlot() == SLOT_SECONDARY) // Soldier SECONDARY
+					{
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"(RapidFire) Ready");
+
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"");
+						Vars::Misc::CL_Move::DTMode.Value = 1;
+						Vars::Misc::CL_Move::DTTicks.Value = 21;
+						//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_DEMOMAN && pWeapon->GetSlot() == SLOT_SECONDARY) // Demoman SECONDARY
+					{
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"(RapidFire) Ready");
+
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"");
+						Vars::Misc::CL_Move::DTMode.Value = 1;
+						Vars::Misc::CL_Move::DTTicks.Value = 21;
+						//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_DEMOMAN && pWeapon->GetSlot() == SLOT_PRIMARY) // Demoman PRIMARY
+					{
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"(RapidFire) Ready");
+						Vars::Misc::CL_Move::DTMode.Value = 1;
+						Vars::Misc::CL_Move::DTTicks.Value = 21;
+						//Vars::Backtrack::Enabled.Value = false;
+                    }
+					else if (pLocal->GetClassNum() == CLASS_SCOUT && pWeapon->GetSlot() == SLOT_PRIMARY) // Scout PRIMARY
+					{
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"(RapidFire) Ready");
+						Vars::Misc::CL_Move::DTMode.Value = 1;
+						Vars::Misc::CL_Move::DTTicks.Value = 21;
+						//Vars::Backtrack::Enabled.Value = false;
+                    }
+					else if (pLocal->GetClassNum() == CLASS_SCOUT && pWeapon->GetSlot() == SLOT_SECONDARY) // Scout SECONDARY
+					{
+					g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+						L"(RapidFire) Ready");
+					Vars::Misc::CL_Move::DTMode.Value = 1;
+					Vars::Misc::CL_Move::DTTicks.Value = 21;
+					//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_MEDIC && pWeapon->GetSlot() == SLOT_PRIMARY) // Medic PRIMARY
+					{
+					g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+						L"(RapidFire) Ready");
+					Vars::Misc::CL_Move::DTMode.Value = 1;
+					Vars::Misc::CL_Move::DTTicks.Value = 21;
+					//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_MEDIC && pWeapon->GetSlot() == SLOT_SECONDARY) // Medic SECONDARY
+					{
+					g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
+						L"(RapidFire) Weapon Not Supported");
+					Vars::Misc::CL_Move::DTMode.Value = 3;
+					//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_HEAVY && pWeapon->GetSlot() == SLOT_PRIMARY) // Heavy PRIMARY
+					{
+					g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+						L"(RapidFire) Ready");
+					Vars::Misc::CL_Move::DTMode.Value = 1;
+					Vars::Misc::CL_Move::DTTicks.Value = 21;
+					//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_HEAVY && pWeapon->GetSlot() == SLOT_SECONDARY) // Heavy SECONDARY
+					{
+					g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+						L"(RapidFire) Ready");
+					Vars::Misc::CL_Move::DTMode.Value = 1;
+					Vars::Misc::CL_Move::DTTicks.Value = 21;
+					//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_ENGINEER && pWeapon->GetSlot() == SLOT_PRIMARY) // Engineer PRIMARY
+					{
+					g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+						L"(RapidFire) Ready");
+					Vars::Misc::CL_Move::DTMode.Value = 1;
+					Vars::Misc::CL_Move::DTTicks.Value = 21;
+					//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_ENGINEER && pWeapon->GetSlot() == SLOT_SECONDARY) // Engineer SECONDARY
+					{
+					g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+						L"(RapidFire) Ready");
+					Vars::Misc::CL_Move::DTMode.Value = 1;
+					Vars::Misc::CL_Move::DTTicks.Value = 21;
+					//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_SPY && pWeapon->GetSlot() == SLOT_PRIMARY) // Spy PRIMARY
+					{
+					g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+						L"(RapidFire) Ready");
+					Vars::Misc::CL_Move::DTMode.Value = 1;
+					Vars::Misc::CL_Move::DTTicks.Value = 21;
+					//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pLocal->GetClassNum() == CLASS_SPY && pWeapon->GetSlot() == SLOT_SECONDARY) // Spy SECONDARY
+					{
+					g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
+						L"(RapidFire) Weapon Not Supported");
+					Vars::Misc::CL_Move::DTMode.Value = 3;
+					//Vars::Backtrack::Enabled.Value = false;
+					}
+					else if (pWeapon->GetSlot() == SLOT_MELEE) // Melee ALL
 					{
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"(RapidFire) Weapon Not Supported");
 
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"");
-						//Vars::Misc::CL_Move::DTMode.Value = 3;
-						//Vars::Backtrack::Enabled.Value = false; // sweet sweet melee backtrack
-					}
-					else if (pLocal->GetClassNum() == CLASS_DEMOMAN && pWeapon->GetSlot() == SLOT_PRIMARY) // i forgor that the grenade launcher messes with aimbot
-					{
-						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
-							L"(RapidFire) Ready");
-
+						Vars::Misc::CL_Move::DTMode.Value = 3;
+						//Vars::Backtrack::Enabled.Value = false;
 					}
 				}
 				}
