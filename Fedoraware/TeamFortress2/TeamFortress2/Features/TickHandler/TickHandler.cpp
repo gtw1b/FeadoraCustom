@@ -125,7 +125,7 @@ void CTickshiftHandler::CLMove(float accumulated_extra_samples, bool bFinalTick)
 		return;
 	}
 
-	if (iDeficit && iAvailableTicks < 24 && Vars::Misc::CL_Move::AutoRetain.Value && G::ShiftedTicks > 1) {
+	if (iDeficit && iAvailableTicks < 24 && Vars::Misc::CL_Move::AutoRetain.Value && G::ShiftedTicks > 3) {
 		iDeficit--;
 		return;
 	}
