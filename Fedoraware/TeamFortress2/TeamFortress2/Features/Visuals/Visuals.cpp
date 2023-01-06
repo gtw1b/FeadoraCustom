@@ -514,7 +514,7 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 					if (G::ShiftedTicks == 0 && !G::Recharging)
 					{
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
-							L"(RapidFire) Too Expensive %i < %i", 1 - G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
+							L"(RapidFire) Too Expensive %i < %i", 0 - G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
 
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"", 0 - G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
@@ -537,8 +537,8 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 
 					else if (pLocal->GetClassNum() == CLASS_SNIPER && pWeapon->GetSlot() == SLOT_PRIMARY) // sniper rifle does not work well with rapidfire
 					{
-						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
-							L"(RapidFire) Ready");
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"(RapidFire) Weapon Not Supported");
 
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"");
@@ -568,8 +568,8 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 					}
 					else if (pLocal->GetClassNum() == CLASS_DEMOMAN && pWeapon->GetSlot() == SLOT_SECONDARY) // sticky launcher does not work well with rapidfire
 					{
-						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 191, 70, 70, 255 }, ALIGN_CENTERHORIZONTAL,
-							L"(RapidFire) Weapon Not Supported");
+						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
+							L"(RapidFire) Ready");
 
 						g_Draw.String(FONT_INDICATORS, g_ScreenSize.c, g_ScreenSize.h / 2 + offset + g_Draw.m_vecFonts[FONT_INDICATORS].nTall * 2, { 60, 160, 110, 255 }, ALIGN_CENTERHORIZONTAL,
 							L"");
