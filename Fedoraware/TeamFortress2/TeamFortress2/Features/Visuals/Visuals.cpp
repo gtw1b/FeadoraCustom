@@ -70,7 +70,7 @@ void CVisuals::DrawOnScreenConditions(CBaseEntity* pLocal)
 	int width, height;
 	for (const std::wstring& cond : conditionsVec)
 	{
-		g_Draw.String(FONT_MENU, x, y + nTextOffset, { 255, 255, 255, 255 }, ALIGN_CENTER, cond.data());
+		g_Draw.String(FONT_INDICATORS, x, y + nTextOffset, { 255, 255, 255, 255 }, ALIGN_CENTER, cond.data());
 		I::VGuiSurface->GetTextSize(g_Draw.m_vecFonts[FONT_MENU].dwFont, cond.data(), width, height);
 		//if (width > longestText)
 		//{
@@ -84,9 +84,8 @@ void CVisuals::DrawOnScreenConditions(CBaseEntity* pLocal)
 	//ConditionH = y + nTextOffset;
 }
 
-void CVisuals::DrawOnScreenPing(CBaseEntity* pLocal){
+void CVisuals::DrawOnScreenPing(CBaseEntity* pLocal) {
 	if (!Vars::Visuals::DrawOnScreenPing.Value) { return; }
-	if (!pLocal->IsAlive() || pLocal->IsAGhost()) { return; }
 
 	CTFPlayerResource* cResource = g_EntityCache.GetPR();
 	if (!cResource) { return; }
@@ -95,6 +94,7 @@ void CVisuals::DrawOnScreenPing(CBaseEntity* pLocal){
 	if (!iNetChan) { return; }
 
 	const float flLatencyReal = (iNetChan->GetLatency(FLOW_INCOMING) + iNetChan->GetLatency(FLOW_OUTGOING)) * 1000;
+	const int flFakeLatency = Vars::Backtrack::Latency.Value;
 	const int flLatencyScoreBoard = cResource->GetPing(pLocal->GetIndex());
 
 	const int x = Vars::Visuals::OnScreenPing.x;
@@ -103,8 +103,15 @@ void CVisuals::DrawOnScreenPing(CBaseEntity* pLocal){
 
 	const int nTextOffset = g_Draw.m_vecFonts[FONT_MENU].nTall;
 	{
-		g_Draw.String(FONT_MENU, x, y, {255, 255, 255, 255 }, ALIGN_DEFAULT, "ping real : %.0f", flLatencyReal);
-		g_Draw.String(FONT_MENU, x, y + h - nTextOffset, {255, 255, 255, 255 }, ALIGN_DEFAULT,	"ping scoreboard : %d", flLatencyScoreBoard);
+		//	if (Vars::Backtrack::Enabled.Value)
+		//	{
+		//		g_Draw.String2(FONT_MENU, x, y, { 255, 255, 255, 255 }, ALIGN_DEFAULT, "Real %.0f", "(+ %d) ms", flLatencyReal, flFakeLatency);
+		//	}
+		//	else
+		//	{
+		g_Draw.String(FONT_INDICATORS, x + 20, y, { 255, 255, 255, 255 }, ALIGN_DEFAULT, "Real %.0f ms", flLatencyReal);
+		//	}
+		g_Draw.String(FONT_INDICATORS, x, y + h - nTextOffset, { 255, 255, 255, 255 }, ALIGN_DEFAULT, "Scoreboard %d ms", flLatencyScoreBoard);
 	}
 }
 
@@ -331,24 +338,24 @@ void CVisuals::DrawDebugInfo(CBaseEntity* pLocal)
 		int yoffset = 10, xoffset = 10;
 
 		{
-			g_Draw.String(FONT_INDICATORS, xoffset, yoffset += 15, Utils::Rainbow(), ALIGN_DEFAULT, "Fedoraware");
-		} 
+			g_Draw.String(FONT_INDICATORS, xoffset, yoffset += 300, { 255, 255, 255, 255 }, ALIGN_DEFAULT, "build Jan 6 2023");
+		}
 		{
-			g_Draw.String(FONT_MENU, xoffset, yoffset += 15, { 119, 255, 225, 255 }, ALIGN_DEFAULT, "Local Player"); // header
+			//g_Draw.String(FONT_MENU, xoffset, yoffset += 15, { 119, 255, 225, 255 }, ALIGN_DEFAULT, "Local Player"); // header
 		}
 		// alive
 		{
 			const bool alive = pLocal->IsAlive();
 			Color_t clr = alive ? Color_t{ 153, 232, 0, 255 } : Color_t{ 167, 0, 0, 255 };
-			g_Draw.String(FONT_MENU, xoffset, yoffset += 15, clr, ALIGN_DEFAULT, "%s", alive ? "ALIVE" : "DEAD");
+			//g_Draw.String(FONT_MENU, xoffset, yoffset += 15, clr, ALIGN_DEFAULT, "%s", alive ? "ALIVE" : "DEAD");
 		}
 
-		if (!G::LastUserCmd){ return; }
+		if (!G::LastUserCmd) { return; }
 		const float flLastFwd = G::LastUserCmd->forwardmove;
 		const float flLastSde = G::LastUserCmd->sidemove;
 		{
-			g_Draw.String(FONT_MENU, xoffset, yoffset += 15, {255, 255, 255, 255}, ALIGN_DEFAULT, "%.0f", flLastFwd);
-			g_Draw.String(FONT_MENU, xoffset, yoffset += 15, {255, 255, 255, 255}, ALIGN_DEFAULT, "%.0f", flLastSde);
+			//g_Draw.String(FONT_MENU, xoffset, yoffset += 15, { 255, 255, 255, 255 }, ALIGN_DEFAULT, "%.0f", flLastFwd);
+			//g_Draw.String(FONT_MENU, xoffset, yoffset += 15, { 255, 255, 255, 255 }, ALIGN_DEFAULT, "%.0f", flLastSde);
 		}
 	}
 }
@@ -418,79 +425,81 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 
 				switch (Vars::Misc::CL_Move::DTBarStyle.Value)
 				{
-					case 1:
-					{
-						g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, Colors::DtOutline);
-						g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color1, color2, true);
-						break;
-					}
-					case 2:
-					{
-						const auto fontHeight = Vars::Fonts::FONT_INDICATORS::nTall.Value;
-						const int drawX = DTBox.x;
-						g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - fontHeight - 3, { 255,255,255,255 }, ALIGN_CENTERHORIZONTAL, L"Ticks %d/%d", G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
-						g_Draw.RoundedBoxStatic(DTBox.x, DTBox.y, DTBox.w, DTBox.h, 4, Colors::DtOutline);
-						if (G::ShiftedTicks && ratioCurrent)
-						{
-							g_Draw.RoundedBoxStatic(DTBox.x + 2, DTBox.y + 2, ratioCurrent * (DTBox.w - 4), DTBox.h - 4, 4, Vars::Menu::Colors::MenuAccent);
-						}
-						if (G::WaitForShift)
-						{
-							g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y + fontHeight + DTBox.h, { 255,255,255,255 }, ALIGN_CENTERHORIZONTAL, L"Not Ready");
-						}
-						break;
-					}
-					case 3:
-					{
-						g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, Colors::DtOutline);	//	draw the outline
-						g_Draw.Rect(DTBox.x + 1, DTBox.y + 1, DTBox.w - 2, DTBox.h - 2, { 28, 29, 38, 255 });	//	draw the background
-						g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color1, color2, true);
-						g_Draw.String(FONT_INDICATORS, DTBox.x, DTBox.y - 10, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"CHARGE");
-
-						if (G::ShiftedTicks == 0) // chargless
-						{
-							g_Draw.String(FONT_INDICATORS, DTBox.x + DTBox.w, DTBox.y - 10, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"NO CHARGE");
-						}
-						else if (G::Recharging) // charging 
-						{
-							g_Draw.String(FONT_INDICATORS, DTBox.x + DTBox.w, DTBox.y - 10, { 255, 126, 0, 255 }, ALIGN_REVERSE, L"CHARGING");
-						}
-						else if (G::WaitForShift) // waiting
-						{
-							g_Draw.String(FONT_INDICATORS, DTBox.x + DTBox.w, DTBox.y - 10, { 255, 46, 46, 255 }, ALIGN_REVERSE, L"DT IMPOSSIBLE");
-						}
-						else	// ready
-						{
-							g_Draw.String(FONT_INDICATORS, DTBox.x + DTBox.w, DTBox.y - 10, { 66, 255, 0, 255 }, ALIGN_REVERSE, L"READY");
-						}
-						break;
-					}
-					case 4:
-					{
-						if (G::ShiftedTicks == 0 || G::Recharging)
-						{
-							g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - 10, { 255, 64, 64, 255 }, ALIGN_CENTERHORIZONTAL, L"Recharge! (%i / %i)", G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
-						}
-						else if (G::WaitForShift)
-						{
-							g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - 10, { 255, 178, 0, 255 }, ALIGN_CENTERHORIZONTAL, L"Wait! (%i / 25)", G::WaitForShift);
-						}
-						else
-						{
-							g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - 10, { 153, 255, 153, 255 }, ALIGN_CENTERHORIZONTAL, L"Shift ready!");
-						}
-						break;
-					}
-					case 5:
-					{
-						g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - 3, { 255, 255, 255, 255 }, ALIGN_CENTERHORIZONTAL, L"%i/%i", G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
-						break;
-					}
-						//hhhs0j — Today at 15:19
-						//Add a dt indicator but only with numbers
-
+				case 1:
+				{
+					g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, Colors::DtOutline);
+					g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color1, color2, true);
+					break;
 				}
+				case 2:
+				{
+					const auto fontHeight = Vars::Fonts::FONT_INDICATORS::nTall.Value;
+					const int drawX = DTBox.x;
+					g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - fontHeight - 3, { 255,255,255,255 }, ALIGN_CENTERHORIZONTAL, L"Ticks %d/%d", G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
+					g_Draw.RoundedBoxStatic(DTBox.x, DTBox.y, DTBox.w, DTBox.h, 4, Colors::DtOutline);
+					if (G::ShiftedTicks && ratioCurrent)
+					{
+						g_Draw.RoundedBoxStatic(DTBox.x + 2, DTBox.y + 2, ratioCurrent * (DTBox.w - 4), DTBox.h - 4, 4, Vars::Menu::Colors::MenuAccent);
+					}
+					if (G::WaitForShift)
+					{
+						g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y + fontHeight + DTBox.h, { 255,255,255,255 }, ALIGN_CENTERHORIZONTAL, L"Not Ready");
+					}
+					break;
+				}
+				case 3:
+				{
+					g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, Colors::DtOutline);	//	draw the outline
+					g_Draw.Rect(DTBox.x + 1, DTBox.y + 1, DTBox.w - 2, DTBox.h - 2, { 28, 29, 38, 255 });	//	draw the background
+					g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color1, color2, true);
+					g_Draw.String(FONT_INDICATORS, DTBox.x, DTBox.y - 10, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"CHARGE");
 
+					if (G::ShiftedTicks == 0) // chargless
+					{
+						g_Draw.String(FONT_INDICATORS, DTBox.x + DTBox.w, DTBox.y - 10, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"NO CHARGE");
+					}
+					else if (G::Recharging) // charging 
+					{
+						g_Draw.String(FONT_INDICATORS, DTBox.x + DTBox.w, DTBox.y - 10, { 255, 126, 0, 255 }, ALIGN_REVERSE, L"CHARGING");
+					}
+					else if (G::WaitForShift) // waiting
+					{
+						g_Draw.String(FONT_INDICATORS, DTBox.x + DTBox.w, DTBox.y - 10, { 255, 46, 46, 255 }, ALIGN_REVERSE, L"DT IMPOSSIBLE");
+					}
+					else	// ready
+					{
+						g_Draw.String(FONT_INDICATORS, DTBox.x + DTBox.w, DTBox.y - 10, { 66, 255, 0, 255 }, ALIGN_REVERSE, L"READY");
+					}
+					break;
+				}
+				case 4:
+				{
+					if (G::ShiftedTicks == 0 || G::Recharging)
+					{
+						g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - 10, { 255, 64, 64, 255 }, ALIGN_CENTERHORIZONTAL, L"Recharge! (%i / %i)", G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
+					}
+					else if (G::WaitForShift)
+					{
+						g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - 10, { 255, 178, 0, 255 }, ALIGN_CENTERHORIZONTAL, L"Wait! (%i / 25)", G::WaitForShift);
+					}
+					else
+					{
+						g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - 10, { 153, 255, 153, 255 }, ALIGN_CENTERHORIZONTAL, L"Shift ready!");
+					}
+					break;
+				}
+				case 5:
+				{
+					g_Draw.String(FONT_INDICATORS, DTBox.c, DTBox.y - 3, { 255, 255, 255, 255 }, ALIGN_CENTERHORIZONTAL, L"%i/%i", G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
+					break;
+				}
+				case 6:
+				{
+					g_Draw.GradientRectWH(DTBox.x, DTBox.y, DTBox.w, DTBox.h, color2, color2, true);
+					g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioCurrent * (DTBox.w - 2), DTBox.h - 2, color1, color1, true);
+					break;
+				}
+				}
 			}
 		}
 	}

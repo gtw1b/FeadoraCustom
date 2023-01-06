@@ -84,42 +84,42 @@ bool CCritHack::NoRandomCrits(CBaseCombatWeapon* pWeapon)
 	{
 		return true;
 	}
-	else 
-	return false;
+	else
+		return false;
 	//list of weapons that cant random crit, but dont have the attribute for it
 	switch (pWeapon->GetWeaponID())
 	{
 		//scout
-		case TF_WEAPON_JAR_MILK:
+	case TF_WEAPON_JAR_MILK:
 		//soldier
-		case TF_WEAPON_BUFF_ITEM:
+	case TF_WEAPON_BUFF_ITEM:
 		//pyro
-		case TF_WEAPON_JAR_GAS:
-		case TF_WEAPON_FLAME_BALL:
-		case TF_WEAPON_ROCKETPACK:
+	case TF_WEAPON_JAR_GAS:
+	case TF_WEAPON_FLAME_BALL:
+	case TF_WEAPON_ROCKETPACK:
 		//demo
-		case TF_WEAPON_PARACHUTE: //also for soldier
+	case TF_WEAPON_PARACHUTE: //also for soldier
 		//heavy
-		case TF_WEAPON_LUNCHBOX:
+	case TF_WEAPON_LUNCHBOX:
 		//engineer
-		case TF_WEAPON_PDA_ENGINEER_BUILD:
-		case TF_WEAPON_PDA_ENGINEER_DESTROY:
-		case TF_WEAPON_LASER_POINTER:
+	case TF_WEAPON_PDA_ENGINEER_BUILD:
+	case TF_WEAPON_PDA_ENGINEER_DESTROY:
+	case TF_WEAPON_LASER_POINTER:
 		//medic
-		case TF_WEAPON_MEDIGUN:
+	case TF_WEAPON_MEDIGUN:
 		//sniper
-		case TF_WEAPON_SNIPERRIFLE:
-		case TF_WEAPON_SNIPERRIFLE_CLASSIC:
-		case TF_WEAPON_SNIPERRIFLE_DECAP:
-		case TF_WEAPON_COMPOUND_BOW:
-		case TF_WEAPON_JAR:
+	case TF_WEAPON_SNIPERRIFLE:
+	case TF_WEAPON_SNIPERRIFLE_CLASSIC:
+	case TF_WEAPON_SNIPERRIFLE_DECAP:
+	case TF_WEAPON_COMPOUND_BOW:
+	case TF_WEAPON_JAR:
 		//spy
-		case TF_WEAPON_KNIFE:
-		case TF_WEAPON_PDA_SPY_BUILD:
-		case TF_WEAPON_PDA_SPY:
-			return true;
-			break;
-		default: return false; break;
+	case TF_WEAPON_KNIFE:
+	case TF_WEAPON_PDA_SPY_BUILD:
+	case TF_WEAPON_PDA_SPY:
+		return true;
+		break;
+	default: return false; break;
 	}
 }
 
@@ -387,9 +387,9 @@ void CCritHack::Draw()
 	const float bucketCap = tf_weapon_criticals_bucket_cap->GetFloat();
 	const std::wstring bucketstr = L"Bucket: " + std::to_wstring(static_cast<int>(bucket)) + L"/" + std::to_wstring(static_cast<int>(bucketCap));
 	// crit bucket (this sucks)
-	if (NoRandomCrits(pWeapon) == false)	
+	if (NoRandomCrits(pWeapon) == false)
 	{
-			g_Draw.String(FONT_INDICATORS, x, currentY += 15, { 181, 181, 181, 255 }, ALIGN_CENTERHORIZONTAL, bucketstr.c_str()); 
+		g_Draw.String(FONT_INDICATORS, x, currentY += 15, { 255, 255, 255, 255 }, ALIGN_CENTERHORIZONTAL, bucketstr.c_str());
 	}
 	int w, h;
 	I::VGuiSurface->GetTextSize(g_Draw.m_vecFonts.at(FONT_INDICATORS).dwFont, bucketstr.c_str(), w, h);
@@ -401,21 +401,21 @@ void CCritHack::Draw()
 	{
 		const std::wstring seedText = L"m_nCritSeedRequests: " + std::to_wstring(seedRequests);
 		const std::wstring FoundCrits = L"Found Crit Ticks: " + std::to_wstring(CritTicks.size());
-		const std::wstring commandNumber = L"cmdNumber: " + std::to_wstring(G::CurrentUserCmd->command_number);
-		g_Draw.String(FONT_INDICATORS, x, currentY += 15, { 181, 181, 181, 255 }, ALIGN_CENTERHORIZONTAL, seedText.c_str());
+		//const std::wstring commandNumber = L"cmdNumber: " + std::to_wstring(G::CurrentUserCmd->command_number);
+		g_Draw.String(FONT_INDICATORS, x, currentY += 15, { 255, 255, 255, 255 }, ALIGN_CENTERHORIZONTAL, seedText.c_str());
 		I::VGuiSurface->GetTextSize(g_Draw.m_vecFonts.at(FONT_INDICATORS).dwFont, seedText.c_str(), w, h);
 		if (w > longestW)
 		{
 			longestW = w;
 		}
-		g_Draw.String(FONT_INDICATORS, x, currentY += 15, { 181, 181, 181, 255 }, ALIGN_CENTERHORIZONTAL, FoundCrits.c_str());
+		g_Draw.String(FONT_INDICATORS, x, currentY += 15, { 255, 255, 255, 255 }, ALIGN_CENTERHORIZONTAL, FoundCrits.c_str());
 		I::VGuiSurface->GetTextSize(g_Draw.m_vecFonts.at(FONT_INDICATORS).dwFont, FoundCrits.c_str(), w, h);
 		if (w > longestW)
 		{
 			longestW = w;
 		}
-		g_Draw.String(FONT_INDICATORS, x, currentY += 15, { 181, 181, 181, 255 }, ALIGN_CENTERHORIZONTAL, commandNumber.c_str());
-		I::VGuiSurface->GetTextSize(g_Draw.m_vecFonts.at(FONT_INDICATORS).dwFont, commandNumber.c_str(), w, h);
+		//g_Draw.String(FONT_INDICATORS, x, currentY += 15, { 181, 181, 181, 255 }, ALIGN_CENTERHORIZONTAL, commandNumber.c_str());
+		//I::VGuiSurface->GetTextSize(g_Draw.m_vecFonts.at(FONT_INDICATORS).dwFont, commandNumber.c_str(), w, h);
 		if (w > longestW)
 		{
 			longestW = w;

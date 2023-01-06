@@ -17,17 +17,17 @@ bool CSpectatorList::GetSpectators(CBaseEntity* pLocal)
 			std::wstring szMode;
 			switch (pTeammate->GetObserverMode())
 			{
-				case OBS_MODE_FIRSTPERSON:
-				{
-					szMode = L"1st";
-					break;
-				}
-				case OBS_MODE_THIRDPERSON:
-				{
-					szMode = L"3rd";
-					break;
-				}
-				default: continue;
+			case OBS_MODE_FIRSTPERSON:
+			{
+				szMode = L"1st";
+				break;
+			}
+			case OBS_MODE_THIRDPERSON:
+			{
+				szMode = L"3rd";
+				break;
+			}
+			default: continue;
 			}
 
 			PlayerInfo_t playerInfo{ };
@@ -36,7 +36,7 @@ bool CSpectatorList::GetSpectators(CBaseEntity* pLocal)
 				Spectators.push_back({
 					Utils::ConvertUtf8ToWide(playerInfo.name), szMode, g_EntityCache.IsFriend(pTeammate->GetIndex()),
 					pTeammate->GetTeamNum(), pTeammate->GetIndex()
-									 });
+					});
 			}
 		}
 	}
@@ -104,14 +104,16 @@ void CSpectatorList::DrawDefault()
 		0);
 
 	// 38 to 43
-	g_Draw.Rect(SpecListX, SpecListY, SpecListW, SpecListTitleBarH, { 43, 43, 45, 250 });
+	const Color_t clrBack = { 0, 9, 4, static_cast<byte>(Vars::Radar::Main::BackAlpha.Value) };
+	g_Draw.Rect(SpecListX, SpecListY, SpecListW, SpecListTitleBarH, clrBack);
+	g_Draw.OutlinedRect(SpecListX, SpecListY, SpecListW, SpecListTitleBarH, Vars::Menu::Colors::MenuAccent);
 
-	g_Draw.String(FONT_MENU,
-				  SpecListX + (SpecListW / 2),
-				  SpecListY + (SpecListTitleBarH / 2),
-				  Vars::Menu::Colors::MenuAccent,
-				  ALIGN_CENTER,
-				  "%hs", "Spectators");
+	g_Draw.String(FONT_INDICATORS,
+		SpecListX + (SpecListW / 2),
+		SpecListY + (SpecListTitleBarH / 2),
+		{ 255, 255, 255, 255 },
+		ALIGN_CENTER,
+		"%hs", "Spectators");
 
 	if (const auto& pLocal = g_EntityCache.GetLocal())
 	{
@@ -167,7 +169,7 @@ void CSpectatorList::DrawClassic()
 
 			int w, h;
 			I::VGuiSurface->GetTextSize(g_Draw.m_vecFonts[FONT_ESP_NAME].dwFont,
-										(Spectator.Mode + Spectator.Name).c_str(), w, h);
+				(Spectator.Mode + Spectator.Name).c_str(), w, h);
 
 			const int nAddY = g_Draw.m_vecFonts[FONT_ESP_NAME].nTall;
 			if (Vars::Visuals::SpectatorList.Value == 3)

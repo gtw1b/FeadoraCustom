@@ -624,10 +624,10 @@ std::optional<Vec3> CAimbotProjectile::GetAimPos(CBaseEntity* pLocal, CBaseEntit
 	
 	if (Vars::Debug::DebugInfo.Value)
 	{
-		I::Cvar->ConsolePrintf("iAimMethod	: %d\n", iAimMethod);
-		I::Cvar->ConsolePrintf("iWeaponID	: %d\n", pWeapon->GetWeaponID());
-		I::Cvar->ConsolePrintf("iWeaponSlot	: %d\n", iSlot);
-		I::Cvar->ConsolePrintf("iClassNum	: %d\n", iClassNum);
+		//I::Cvar->ConsolePrintf("iAimMethod	: %d\n", iAimMethod);
+		//I::Cvar->ConsolePrintf("iWeaponID	: %d\n", pWeapon->GetWeaponID());
+		//I::Cvar->ConsolePrintf("iWeaponSlot	: %d\n", iSlot);
+		//I::Cvar->ConsolePrintf("iClassNum	: %d\n", iClassNum);
 	}
 
 	switch (iAimMethod)
