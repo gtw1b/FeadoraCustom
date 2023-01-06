@@ -501,7 +501,7 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 				{
 
 					int w = 80;
-					int h = 3;
+					int h = 5;
 					int offset = 100;
 					int x = g_ScreenSize.c - w / 2;
 					int y = g_ScreenSize.h / 2 + offset;
