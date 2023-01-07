@@ -353,7 +353,7 @@ void CVisuals::DrawDebugInfo(CBaseEntity* pLocal)
 				//Color_t clr = alive ? Color_t{ 153, 232, 0, 255 } : Color_t{ 167, 0, 0, 255 };
 				//g_Draw.String(FONT_MENU, xoffset, yoffset += 15, clr, ALIGN_DEFAULT, "%s", alive ? "ALIVE" : "DEAD");
 			}
-			g_Draw.String(FONT_INDICATORS, xoffset -= 7, yoffset += 1057, { 255, 255, 255, 255 }, ALIGN_DEFAULT, "build Jan 6 2023 1:40:10 PM");
+			g_Draw.String(FONT_INDICATORS, xoffset -= 7, yoffset += 1057, { 255, 255, 255, 255 }, ALIGN_DEFAULT, "build Jan 7 2023 5:30:10 PM");
 		}
 	}
 }

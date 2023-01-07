@@ -121,7 +121,7 @@ void CSpectatorList::DrawDefault()
 
 		constexpr int nSpacing = 5;
 		constexpr int nModeW = 15;
-		const int nFontTall = g_Draw.m_vecFonts[FONT_MENU].nTall;
+		const int nFontTall = g_Draw.m_vecFonts[FONT_INDICATORS].nTall;
 		const int nModeX = SpecListX + nSpacing;
 		const int nNameX = nModeX + nModeW + (nSpacing * 2);
 		int y = SpecListY + SpecListTitleBarH;
@@ -141,8 +141,8 @@ void CSpectatorList::DrawDefault()
 
 			y = SpecListY + SpecListTitleBarH + (nFontTall * n);
 
-			g_Draw.String(FONT_MENU, nModeX, y, { 255, 255, 255, 255 }, ALIGN_DEFAULT, Spectators[n].Mode.data());
-			g_Draw.String(FONT_MENU, nNameX, y, { 255, 255, 255, 255 }, ALIGN_DEFAULT, Spectators[n].Name.data());
+			g_Draw.String(FONT_INDICATORS, nModeX, y, { 255, 255, 255, 255 }, ALIGN_DEFAULT, Spectators[n].Mode.data());
+			g_Draw.String(FONT_INDICATORS, nNameX, y, { 255, 255, 255, 255 }, ALIGN_DEFAULT, Spectators[n].Name.data());
 		}
 	}
 }
