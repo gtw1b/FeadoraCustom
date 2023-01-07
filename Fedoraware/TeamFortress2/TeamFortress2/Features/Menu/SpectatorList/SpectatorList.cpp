@@ -128,8 +128,9 @@ void CSpectatorList::DrawDefault()
 		const int h = nFontTall * Spectators.size();
 
 		// 25 to 31
-		g_Draw.Rect(SpecListX, y, SpecListW, h, { 36, 36, 36, 255 });
-		g_Draw.Line(nModeX + nSpacing + nModeW, y, nModeX + nSpacing + nModeW, y + h - 1, { 255, 255, 255, 255 });
+		g_Draw.Rect(SpecListX, y, SpecListW, h, clrBack);
+		g_Draw.OutlinedRect(SpecListX, y, SpecListW, h, Vars::Menu::Colors::MenuAccent);
+		g_Draw.Line(nModeX + nSpacing + nModeW, y, nModeX + nSpacing + nModeW, y + h - 1, Vars::Menu::Colors::MenuAccent);
 
 		for (size_t n = 0; n < Spectators.size(); n++)
 		{
